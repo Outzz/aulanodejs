@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Outzz/aulanodejs/issues"
   },
-  "homepage": "https://github.com/Outzz/aulanodejs#readme"
+  "homepage": "https://github.com/Outzz/aulanodejs#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }

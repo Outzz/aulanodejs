@@ -1,12 +1,12 @@
-export abstract class BaseModel {
-  protected id: string;
-  protected criadoEm: Date;
-  protected atualizadoEm?: Date;
+import crypto from "crypto";
 
-  constructor(id: string) {
-    this.id = id;
+export abstract class BaseModel {
+  public readonly id: string;
+  public readonly criadoEm: Date;
+  public status: "ativa" | "suspensa" | "excluida" = "ativa";
+
+  constructor(id?: string) {
+    this.id = id ?? crypto.randomUUID();
     this.criadoEm = new Date();
   }
-
-  getId() { return this.id; }
 }
