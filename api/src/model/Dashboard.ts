@@ -1,24 +1,18 @@
 import crypto from "crypto";
+import { BaseModel } from "./base";
 
-export class Dashboard {
+export class Dashboard extends BaseModel {
   constructor(
-    private id: string,
-    private periodoInicio: Date,
-    private periodoFim: Date,
-    private totalLeads: number,
-    private totalOportunidades: number,
-    private totalVendas: number,
-    private taxaConversao: number,
-    private semanaAnterior?: number,
-    private mesAnterior?: number,
-    private anoAnterior?: number,
-    private geradoEm: Date = new Date()
-  ) {}
+    id: string,
+    private vendasTotais: number,
+    private leadsGerados: number,
+    private conversoes: number,
+    private faturamento: number,
+    private atualizadoEm = new Date()
+  ) { super(id); }
 
-  static create(periodoInicio: Date, periodoFim: Date, totalLeads: number, totalOportunidades: number, totalVendas: number, taxaConversao: number) {
+  static create(vendasTotais: number, leadsGerados: number, conversoes: number, faturamento: number) {
     const id = crypto.randomUUID();
-    return new Dashboard(id, periodoInicio, periodoFim, totalLeads, totalOportunidades, totalVendas, taxaConversao);
+    return new Dashboard(id, vendasTotais, leadsGerados, conversoes, faturamento);
   }
-
-  getId() { return this.id; }
 }

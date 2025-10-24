@@ -1,43 +1,19 @@
-export class User {
+import crypto from "crypto";
+import { BaseModel } from "./base";
+
+export class User extends BaseModel {
   constructor(
-    private id: string,
+    id: string,
     private nome: string,
-    private telefone: string,
     private email: string,
-    private senha: string,
-    private idade?: number
-  ) {
-    if (!nome) throw new Error("nome obrigatório");
-    if (!telefone) throw new Error("telefone obrigatório");
-    if (!email) throw new Error("email obrigatório");
-    if (!senha) throw new Error("senha obrigatória");
+    private senhaHash: string,
+    private cargo: "vendedor" | "gestor" | "administrador",
+    private status: "ativa" | "suspensa" | "excluida",
+    private criadoEm = new Date()
+  ) { super(id); }
 
-    if (nome.length < 3) throw new Error("nome muito curto");
-    if (senha.length < 3) throw new Error("senha muito curta");
-  }
-
-  static create(nome: string, telefone: string, email: string, senha: string, idade?: number) {
+  static create(nome: string, email: string, senhaHash: string, cargo: "vendedor" | "gestor" | "administrador") {
     const id = crypto.randomUUID();
-    return new User(id, nome, telefone, email, senha, idade);
-  }
-
-  getId(): string {
-    return this.id;
-  }
-
-  getNome(): string {
-    return this.nome;
-  }
-
-  getIdade(): number | undefined {
-    return this.idade;
-  }
-
-  getEmail(): string {
-    return this.email;
-  }
-
-  getSenha(): string {
-    return this.senha;
+    return new User(id, nome, email, senhaHash, cargo, "ativa");
   }
 }
